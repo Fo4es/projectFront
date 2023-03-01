@@ -5,6 +5,9 @@ import {paidReducer} from "./slice/paid.slice";
 const rootReducer = combineReducers ({
     auth:authReducer,
     paid:paidReducer,
+    admin:paidReducer,
+    token:paidReducer,
+    password:paidReducer
 });
 
 const setupStore =()=> configureStore({

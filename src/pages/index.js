@@ -1,2 +1,2 @@
-export * from './AdminPage'
+export * from './PaidPage'
 export * from './LoginPage'

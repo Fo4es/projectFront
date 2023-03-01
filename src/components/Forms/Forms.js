@@ -1,8 +1,4 @@
-import { useState} from "react";
-
 export default function Form({searchParams,setSearchParams}){
-
-    const [inputs,setInputs] = useState('');
 
     return(
         <div>

@@ -1,30 +1,25 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
-
+import {useEffect} from "react";
 import {useSearchParams} from "react-router-dom";
+
 import Table from "../Table/Table";
 import {paidActions} from "../../redux/slice/paid.slice";
 import Form from "../Forms/Forms";
-
-
-
+import NameUser from "../NameUser/NameUser";
 
 export default function Paid(){
 
-
     const [searchParams,setSearchParams] = useSearchParams({order:'id'});
-
     const nameQuery = searchParams.get('name') || '';
     const surnameQuery = searchParams.get('surname') || '';
     const emailQuery = searchParams.get('email') ||  '';
     const ageQuery = searchParams.get('age') || '';
 
-
     const {paid} = useSelector(state => state.paid);
+
     const {items} = paid;
 
     const [query,setQuery] = useSearchParams({page: '1'});
-
 
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -40,25 +35,18 @@ export default function Paid(){
             course_type:searchParams.get('course_type'),
             order:searchParams.get('order')
         }))
-
     },[query,dispatch])
 
     const prevPage = () => {
-
         const page = +query.get('page')-1;
-
         query.set("page",page);
         setQuery(query);
-
     };
 
     const nextPage = () => {
-
         const page = +query.get('page')+1;
         query.set("page",page);
         setQuery(query);
-
-
     };
 
     const search = (items)=>{
@@ -70,16 +58,16 @@ export default function Paid(){
                 obj.age.toString().includes(ageQuery)
         )
     }
-    // console.log(nameQuery);
-
-
 
     return(
+        <div>
+            <NameUser/>
         <div className="table_container">
             <Form searchParams={searchParams} setSearchParams={setSearchParams}/>
             <Table items={search(items)} search={searchParams} setSearch={setSearchParams}/>
             <button className={'buttonPage'}  onClick={prevPage}>Prev</button>
             <button className={'buttonPage'} onClick={nextPage}>Next</button>
+        </div>
         </div>
     );
 }

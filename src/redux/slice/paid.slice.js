@@ -4,6 +4,10 @@ import {paidService} from "../../services/paid.service";
 const initialState={
     paid:[],
     search:[],
+    admin:[],
+    token:null,
+    password:null,
+    userForUpdate:null
 
 };
 
@@ -15,19 +19,52 @@ const getAll = createAsyncThunk(
 
     }
 );
+const getAdminUser = createAsyncThunk(
+    'paid/getAdminUser',
+    async ()=>{
+        const {data} = await paidService.getAdminUsers()
+        return data
+
+    }
+);
 const patchComent = createAsyncThunk(
     'paid/pucth',
-         async ({id,comments}) => {
-    const {data} = await paidService.patchByID(id,comments);
+         async ({id,element}) => {
+    const {data} = await paidService.patchByID(id,element);
     return data
 }
+)
+const createUser = createAsyncThunk(
+    'admin/create',
+    async ({user})=>{
+        const {data} = await paidService.createUser(user)
+        return data
+    }
+)
+const activateUser = createAsyncThunk(
+    'admin/user',
+    async ({id})=>{
+        const {data} = await paidService.activateUser(id)
+        return data
+    }
+)
+const activateToken = createAsyncThunk(
+    'admin/token',
+    async ({token,ActivateUser})=>{
+        const {data} = await paidService.activateToken(token,ActivateUser)
+        return data
+    }
 )
 
 
 const paidSlice = createSlice({
         name:'paid',
         initialState,
-        reducers:{},
+        reducers:{
+            setUserForUpdate: (state, action) => {
+                state.userForUpdate = action.payload;
+            }
+        },
         extraReducers:(builder )=>{
             builder
                 .addCase(getAll.fulfilled,(state, action) => {
@@ -36,16 +73,34 @@ const paidSlice = createSlice({
                 .addCase(patchComent.fulfilled,(state, action) => {
                     const current = state.paid.find(value => value.id === action.payload.id);
                     Object.assign(current, action.payload);
+                    state.userForUpdate = null
                     })
+                .addCase(getAdminUser.fulfilled,(state, action) => {
+                    state.admin = action.payload;
+                })
+                .addCase(createUser.fulfilled,(state, action) => {
+                    state.admin.push(action.payload)
+                })
+                .addCase(activateUser.fulfilled,(state, action) => {
+                    state.token = action.payload;
+                })
+                .addCase(activateToken.fulfilled,(state, action) => {
+                    state.password = action.payload
+                })
         }
 
     }
 );
-const {reducer:paidReducer,actions} = paidSlice
+const {reducer:paidReducer,actions:{setUserForUpdate}} = paidSlice
 
 const paidActions = {
     getAll,
-    patchComent
+    patchComent,
+    getAdminUser,
+    createUser,
+    activateUser,
+    activateToken,
+    setUserForUpdate
 }
 export {
     paidActions,

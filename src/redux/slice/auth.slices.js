@@ -42,7 +42,7 @@ const authSlice = createSlice({
             })
 })
 
-const {reducer:authReducer,actions} = authSlice
+const {reducer:authReducer} = authSlice
 
 const authActions = {
     login

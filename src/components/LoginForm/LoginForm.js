@@ -17,8 +17,6 @@ export default function LoginForm(){
         if(!error){
             navigate('/paid')
         }
-
-
     };
 
     return(
@@ -26,7 +24,6 @@ export default function LoginForm(){
             <input type="text" placeholder={'email'} {...register('email')}/>
             <input type="text" placeholder={'password'} {...register('password')}/>
             <button>Login</button>
-
         </form>
     );
 }

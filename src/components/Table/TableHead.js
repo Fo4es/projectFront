@@ -4,8 +4,6 @@ export default function TableHead({columns,setSearch,search}){
 
     const [sort,setSort] = useState('');
 
-
-
     function sortOrder(e) {
         const element = e && e.target.getAttribute('data-item');
         if(element){
@@ -19,15 +17,12 @@ export default function TableHead({columns,setSearch,search}){
         }else{
             search.delete('order');
         }
-
-
     }
 
     return(
         <thead >
         {columns && columns.map(({ label, accessor }) =>
             <th key={accessor}  data-item={accessor} onClick={sortOrder}>{label}</th>
-
         )}
         </thead>
     );
