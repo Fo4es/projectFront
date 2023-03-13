@@ -25,10 +25,6 @@ export default function Paid(){
     const [query,setQuery] = useSearchParams({page: '1'});
 
     useEffect(()=>{
-        dispatch(paidActions.usersMy())
-    },[])
-
-    useEffect(()=>{
         const delay = setTimeout(()=>{
             dispatch(paidActions.getAll({
                 page:query.get('page'),

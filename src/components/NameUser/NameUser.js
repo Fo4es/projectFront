@@ -8,6 +8,7 @@ export default function NameUser(){
     const user = JSON.parse(authServices.getUser())
 
     const {name} = user;
+    console.log(user);
 
     const navigate = useNavigate();
     function submit() {

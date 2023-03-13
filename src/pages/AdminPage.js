@@ -10,7 +10,7 @@ export default function AdminPage(){
 
     const {admin} = useSelector(state => state.admin);
 
-   const {results} =  admin;
+    const {results} =  admin;
 
 
     const {handleSubmit,register} = useForm();
@@ -18,9 +18,9 @@ export default function AdminPage(){
     const dispatch = useDispatch();
 
     const submit = async (profile)=>{
-        console.log(await dispatch(paidActions.createUser({
+       await dispatch(paidActions.createUser({
             user: {profile:{name: profile.name, surname: profile.surname},email: profile.email}
-        })));
+        }));
     }
 
     useEffect(()=> {

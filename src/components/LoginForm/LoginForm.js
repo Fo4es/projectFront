@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 
 import {authActions} from "../../redux/slice/auth.slices";
+import {paidActions} from "../../redux/slice/paid.slice";
 
 export default function LoginForm(){
 
@@ -14,6 +15,7 @@ export default function LoginForm(){
 
     const submit = async (data) => {
         const {error} = await  dispatch(authActions.login({user:data}));
+        await dispatch(paidActions.usersMy())
         if(!error){
             navigate('/paid')
         }
