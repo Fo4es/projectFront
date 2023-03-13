@@ -14,7 +14,7 @@ export default function Table({items,search,setSearch}){
         { label: "Status", accessor: "status" },
         { label: "Course_Format", accessor: "course_format" },
         { label: "Course_Type", accessor: "course_type" },
-        { label: "Manager", accessor: "manager.name" },
+        { label: "Manager", accessor: "managerName" },
 
     ];
 

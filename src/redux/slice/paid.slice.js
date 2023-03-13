@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {paidService} from "../../services/paid.service";
+import {authServices} from "../../services/auth.service";
 
 const initialState={
     paid:[],
@@ -7,7 +8,11 @@ const initialState={
     admin:[],
     token:null,
     password:null,
-    userForUpdate:null
+    userForUpdate:null,
+    profile:[],
+    statistic:null,
+    ban:null,
+    comments:null
 
 };
 
@@ -56,6 +61,39 @@ const activateToken = createAsyncThunk(
     }
 )
 
+const usersMy = createAsyncThunk(
+    'usersMy',
+    async ()=>{
+        const {data} = await paidService.usersMy();
+        return data
+    }
+);
+
+const userStatistic = createAsyncThunk(
+    'userStatistic',
+    async ({id})=>{
+        const {data} = await paidService.usersStatistic(id);
+        return data
+    }
+);
+
+const banUser = createAsyncThunk(
+    'banUser',
+    async ({id,select})=>{
+        const {data} = await paidService.banUsers(id,select);
+        return data
+    }
+);
+
+const createComments = createAsyncThunk(
+    'createComments',
+    async ({id,comment})=>{
+        const {data} = await paidService.createComments(id,comment);
+        return data
+    }
+);
+
+
 
 const paidSlice = createSlice({
         name:'paid',
@@ -87,6 +125,18 @@ const paidSlice = createSlice({
                 .addCase(activateToken.fulfilled,(state, action) => {
                     state.password = action.payload
                 })
+                .addCase(usersMy.fulfilled,(state, action) => {
+                    authServices.setUser(action.payload)
+                })
+                .addCase(userStatistic.fulfilled,(state, action) => {
+                    state.statistic = action.payload
+                })
+                .addCase(banUser.fulfilled,(state, action) => {
+                    state.ban = action.payload
+                })
+                .addCase(createComments.fulfilled,(state, action) => {
+                    state.comments = action.payload
+                })
         }
 
     }
@@ -100,7 +150,11 @@ const paidActions = {
     createUser,
     activateUser,
     activateToken,
-    setUserForUpdate
+    setUserForUpdate,
+    usersMy,
+    userStatistic,
+    banUser,
+    createComments
 }
 export {
     paidActions,

@@ -31,7 +31,7 @@ export default function EditPage() {
     }, [setValue, userForUpdate]);
 
     const submit = async (data) => {
-        console.log(await dispatch(paidActions.patchComent({id: state.id, element: data})));
+       await dispatch(paidActions.patchComent({id: state.id, element: data}));
     }
     return (
         <div>
@@ -51,11 +51,11 @@ export default function EditPage() {
                 <input type="text" placeholder="phone" {...register("phone")}/>
                 <input type="text" placeholder="status" {...register("status")}/>
                 <button>Update</button>
-                <button onClick={() => {
-                    navigate('/paid')
-                }}>Back to table
-                </button>
             </form>
+            <button onClick={() => {
+                navigate('/paid')
+            }}>Back to table
+            </button>
         </div>
     );
 }

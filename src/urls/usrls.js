@@ -1,10 +1,13 @@
-const baseURL = 'http://bigbird.space/api/v1';
+const baseURL = 'http://127.0.0.1:8000/api/v1';
 
 const urls = {
     auth:'/auth',
-    paid:'/paid',
+    paid:'/orders',
     admin:'/admin/users',
-    activate:'/auth/activate'
+    activate:'/auth/activate',
+    my:'/users/my',
+    statistic:'/admin/statistic/users',
+
 
 }
 

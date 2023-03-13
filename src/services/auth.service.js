@@ -9,10 +9,13 @@ const authServices = {
     login:(user)=>axiosService.post(urls.auth, user),
     refresh:(refresh)=>axiosService.post(`${urls.auth}/refresh`, {refresh}),
 
-    setTokens:({access, refresh,user})=>{
+    setTokens:({access, refresh})=>{
         localStorage.setItem(_accessToken,access)
         localStorage.setItem(_refreshToken,refresh)
-        localStorage.setItem(_user,JSON.stringify(user.profile))
+    },
+
+    setUser:({profile})=>{
+        localStorage.setItem(_user,JSON.stringify(profile))
     },
 
     deleteTokens:()=>{

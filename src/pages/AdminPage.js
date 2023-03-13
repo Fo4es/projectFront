@@ -7,7 +7,11 @@ import Admin from "../components/Admin/Admin";
 
 
 export default function AdminPage(){
+
     const {admin} = useSelector(state => state.admin);
+
+   const {results} =  admin;
+
 
     const {handleSubmit,register} = useForm();
 
@@ -30,7 +34,7 @@ export default function AdminPage(){
                 <input type="text" placeholder={"surname"} {...register('surname')}/>
                 <button>create</button>
             </form>
-            {admin && admin.map((user,index)=><Admin key={index} user={user}/>)}
+            {results && results.map((user,index)=><Admin key={index} user={user}/>)}
         </div>
     );
 }

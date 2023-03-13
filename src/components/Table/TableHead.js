@@ -21,9 +21,11 @@ export default function TableHead({columns,setSearch,search}){
 
     return(
         <thead >
+        <tr>
         {columns && columns.map(({ label, accessor }) =>
             <th key={accessor}  data-item={accessor} onClick={sortOrder}>{label}</th>
         )}
+        </tr>
         </thead>
     );
 }

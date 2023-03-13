@@ -33,14 +33,27 @@ const paidService = {
         headers:{
             Authorization: `Bearer ${authServices.getAccessToken()}`
         }
+    }),
+    usersMy:()=> axiosService.get(urls.my,{
+        headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
+    }),
+    usersStatistic:(id)=> axiosService.get(`${urls.statistic}/${id}`,{
+        headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
+}),
+    banUsers:(id,select)=> axiosService.patch(`${urls.admin}/${id}/${select}`),
+
+    createComments:(id,comment)=> axiosService.post(`${urls.paid}/${id}/comments`,comment,{
+        headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
     })
 }
-
-
 
 export {
     paidService
 }
 
-
-// course_type='', course_type,

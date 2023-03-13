@@ -7,7 +7,9 @@ const rootReducer = combineReducers ({
     paid:paidReducer,
     admin:paidReducer,
     token:paidReducer,
-    password:paidReducer
+    password:paidReducer,
+    profile:paidReducer,
+    statistic:paidReducer,
 });
 
 const setupStore =()=> configureStore({
