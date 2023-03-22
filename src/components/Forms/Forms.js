@@ -1,5 +1,19 @@
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {paidActions} from "../../redux/slice/paid.slice";
 
 export default function Form({searchParams,setSearchParams}){
+
+    const dispatch = useDispatch();
+
+    const {group} = useSelector(state => state.group);
+
+    const {results} = group;
+
+    useEffect(()=>{
+        dispatch(paidActions.getGroup());
+    },[]);
+
     const handleChange = (e)=>{
         if(e.target.value){
             searchParams.set(e.target.name,e.target.value);
@@ -17,7 +31,6 @@ export default function Form({searchParams,setSearchParams}){
                 <input className="inp" type="type" name="surname"  placeholder={'Surname'}  onChange={handleChange}/>
                 <input className="inp" type="text" placeholder={'Email'} name="email" onChange={handleChange}/>
                 <input className="inp" type="text" placeholder={'Age'} name="age" onChange={handleChange}/>
-
 
                 <select className="inp" name="course"  onChange={handleChange} defaultValue={""}>
                     <option value="" >Course</option>
@@ -51,6 +64,16 @@ export default function Form({searchParams,setSearchParams}){
                     <option value="pro">pro</option>
                     <option value="vip">vip</option>
                 </select>
+
+                <select className="inp" name="group" onChange={handleChange} defaultValue={''}>
+                    <option value="" >Group </option>
+                    {results && results.map((element,index)=><option key={index} value={element.name}>{element.name}</option> )}
+                </select>
+
+                <input type="date" name="start_date" onChange={handleChange}/>
+
+
+
             </form>
 
         </div>

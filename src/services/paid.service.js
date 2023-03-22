@@ -3,11 +3,11 @@ import {urls} from "../urls/usrls";
 import {authServices} from "./auth.service";
 
 const paidService = {
-    getAll:(page=1,name='',email='',age='',course='',status='',course_format='',course_type='',order='id') => axiosService.get(urls.paid,{
+    getAll:(page=1,name='',surname='',email='',age='',course='',status='',course_format='',course_type='',order='id',size=10,start_date='',group='') => axiosService.get(urls.paid,{
         headers:{
             Authorization: `Bearer ${authServices.getAccessToken()}`,
         },
-        params:{page,name,email,age,course,status,course_format,course_type,order}
+        params:{page,name,surname,email,age,course,status,course_format,course_type,order,size,start_date,group}
     }),
     patchByID:(id,data) => axiosService.patch(`${urls.paid}/${id}`,data,{
         headers:{
@@ -20,14 +20,14 @@ const paidService = {
         }
     }),
     getAdminUsers:()=> axiosService.get(urls.admin,{
-    headers:{
-        Authorization: `Bearer ${authServices.getAccessToken()}`
-    }
+        headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
     }),
     activateUser:(id)=> axiosService.get(`${urls.admin}/${id}/re_token`,{
-    headers:{
-        Authorization: `Bearer ${authServices.getAccessToken()}`
-    }
+        headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
     }),
     activateToken:(token,ActivateUser)=> axiosService.post(`${urls.activate}/${token}`,ActivateUser,{
         headers:{
@@ -43,14 +43,30 @@ const paidService = {
         headers:{
             Authorization: `Bearer ${authServices.getAccessToken()}`
         }
-}),
+    }),
     banUsers:(id,select)=> axiosService.patch(`${urls.admin}/${id}/${select}`),
 
     createComments:(id,comment)=> axiosService.post(`${urls.paid}/${id}/comments`,comment,{
         headers:{
             Authorization: `Bearer ${authServices.getAccessToken()}`
         }
+    }),
+    getComments:(id) => axiosService.get(`${urls.paid}/${id}/comments`, {
+        headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
+    }),
+    getGroup:()=> axiosService.get(urls.groups,{
+        headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
+    }),
+    postGroup:(group)=> axiosService.post(urls.groups,group,{
+        headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
     })
+
 }
 
 export {

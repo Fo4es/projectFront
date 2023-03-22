@@ -3,9 +3,10 @@ import TableBody from "./TableBody";
 import './table.css'
 
 
-export default function Table({items,search,setSearch}){
+export default function Table({items,search,setSearch,setChange,change}){
 
     const columns = [
+        { label: "Id", accessor: "id" },
         { label: "Name", accessor: "name" },
         { label: "Surname", accessor: "surname" },
         { label: "Email", accessor: "email" },
@@ -15,14 +16,17 @@ export default function Table({items,search,setSearch}){
         { label: "Course_Format", accessor: "course_format" },
         { label: "Course_Type", accessor: "course_type" },
         { label: "Manager", accessor: "managerName" },
+        { label: "created_at", accessor: "created_at" },
+        { label: "group", accessor: "groupName" }
+
 
     ];
 
     return (
         <div>
             <table className="table">
-                <TableHead columns={columns} search={search} setSearch={setSearch}/>
-                <TableBody columns={columns} tableData={items}/>
+                <TableHead columns={columns} search={search} setSearch={setSearch} />
+                <TableBody columns={columns} tableData={items} setChange={setChange} change={change}/>
             </table>
         </div>
     );

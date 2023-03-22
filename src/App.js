@@ -5,15 +5,22 @@ import PaidPage from "./pages/PaidPage";
 import AdminPage from "./pages/AdminPage";
 import ActivatePage from "./pages/ActivatePage";
 import EditPage from "./pages/EditPage";
+import {useState} from "react";
+import {authServices} from "./services/auth.service";
 
 const App = ()=>{
+
+    const user = JSON.parse(authServices.getUser())
+
   return (
     <Routes>
       <Route path={''} element={<Mainlayouts/>}>
           <Route index element={<Navigate to={'login'}/>}/>
-          <Route path={'login'} element={<LoginPage/>}/>
+          <Route path={'login'} element={<LoginPage />}/>
           <Route path={'paid'} element={<PaidPage/>}/>
-          <Route path={'admin'} element={<AdminPage/>}/>
+          <Route path={'admin'} element={
+              <AdminPage/>
+          }/>
           <Route path={'activate/:token'} element={<ActivatePage/>}/>
           <Route path={'edit'} element={<EditPage/>}/>
       </Route>

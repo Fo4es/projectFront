@@ -14,8 +14,8 @@ const authServices = {
         localStorage.setItem(_refreshToken,refresh)
     },
 
-    setUser:({profile})=>{
-        localStorage.setItem(_user,JSON.stringify(profile))
+    setUser:({profile,is_superuser})=>{
+        localStorage.setItem(_user,JSON.stringify({profile, is_superuser}))
     },
 
     deleteTokens:()=>{
@@ -25,7 +25,8 @@ const authServices = {
 
     getAccessToken:()=>localStorage.getItem(_accessToken),
     getRefreshToken:()=>localStorage.getItem(_refreshToken),
-    getUser:()=>localStorage.getItem(_user)
+    getUser:()=>localStorage.getItem(_user),
+    deleteUser:()=>localStorage.removeItem(_user)
 }
 
 export {authServices}

@@ -10,6 +10,10 @@ const rootReducer = combineReducers ({
     password:paidReducer,
     profile:paidReducer,
     statistic:paidReducer,
+    comments:paidReducer,
+    group:paidReducer
+
+
 });
 
 const setupStore =()=> configureStore({

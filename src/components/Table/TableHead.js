@@ -8,7 +8,6 @@ export default function TableHead({columns,setSearch,search}){
         const element = e && e.target.getAttribute('data-item');
         if(element){
             setSearch({order:`${sort}${element}`});
-            console.log(search.get('order'));
             if(sort===''){
                 setSort('-');
             }else{
@@ -22,9 +21,9 @@ export default function TableHead({columns,setSearch,search}){
     return(
         <thead >
         <tr>
-        {columns && columns.map(({ label, accessor }) =>
-            <th key={accessor}  data-item={accessor} onClick={sortOrder}>{label}</th>
-        )}
+            {columns && columns.map(({ label, accessor }) =>
+                <th key={accessor}  data-item={accessor} onClick={sortOrder}>{label}</th>
+            )}
         </tr>
         </thead>
     );

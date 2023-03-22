@@ -5,7 +5,13 @@ export default function TableData({data,accessor}){
         if(data['manager']){
             tData= data['manager']['name']
         }
-    }else{
+    }
+    else if(accessor ==='groupName') {
+        if(data['group']){
+            tData= data['group']['name']
+        }
+    }
+    else{
         tData = data[accessor] ? data[accessor] : "——";
     }
 

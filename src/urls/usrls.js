@@ -7,6 +7,7 @@ const urls = {
     activate:'/auth/activate',
     my:'/users/my',
     statistic:'/admin/statistic/users',
+    groups:'/groups'
 
 
 }

@@ -7,8 +7,7 @@ export default function NameUser(){
 
     const user = JSON.parse(authServices.getUser())
 
-    const {name} = user;
-    console.log(user);
+    const {profile} = user;
 
     const navigate = useNavigate();
     function submit() {
@@ -17,8 +16,8 @@ export default function NameUser(){
 
     return(
         <div>
-            {name}
-            {name ==='admin' ? <button onClick={submit}>{name}</button>:null}
+            {profile.name}
+            {profile.name ==='admin' ? <button onClick={submit}>{profile.name}</button>:null}
         </div>
     );
 }

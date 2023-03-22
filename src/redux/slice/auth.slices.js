@@ -1,22 +1,26 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, current} from "@reduxjs/toolkit";
 import {authServices} from "../../services/auth.service";
 
 const initialState = {
-    errors:null,
+    error:null,
     isAuth:null
 
 };
 
 const login = createAsyncThunk(
     'authSlice/login',
-    async ({user}, {rejectedWithValue})=>{
+    async ({user}, { rejectWithValue })=>{
         try {
             const {data} = await authServices.login(user);
-            console.log(data);
             return data
 
-        }catch (e){
-            return rejectedWithValue(e.response.data)
+        }catch (error) {
+            // return custom error message from backend if present
+            if (error.response && error.response) {
+                return rejectWithValue(error.response.data)
+            } else {
+                return rejectWithValue(error)
+            }
         }
     }
 );
@@ -29,17 +33,13 @@ const authSlice = createSlice({
         builder
             .addCase(login.fulfilled,(state, action) => {
                 state.isAuth = true;
-                console.log(action.payload);
-                authServices.setTokens(action.payload)
+                authServices.setTokens(action.payload);
+                state.error = null;
             })
-            .addDefaultCase((state, action) => {
-                const [type] = action.type.split('/').splice(-1);
-                if(type === 'rejected') {
-                    state.errors = action.payload;
-                }else {
-                    state.errors = null;
-                }
+            .addCase(login.rejected,(state, action) => {
+                state.error = action.payload;
             })
+
 })
 
 const {reducer:authReducer} = authSlice

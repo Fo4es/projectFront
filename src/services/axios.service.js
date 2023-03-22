@@ -17,14 +17,14 @@ axiosService.interceptors.request.use((config) => {
     }
     return config
 })
-
+//
 let isRefreshing = false
 axiosService.interceptors.response.use((config) => {
         return config
     },
     async (error) => {
         const refresh = authServices.getRefreshToken();
-
+//
         if (error.response?.status === 401 && error.config && !isRefreshing && refresh) {
             isRefreshing = true
             try {
@@ -34,8 +34,9 @@ axiosService.interceptors.response.use((config) => {
                 authServices.deleteTokens()
                 return history.replace('/login?ExpSession=true')
             }
+
             isRefreshing = false
-            return axiosService(error.config)
+            // return axiosService(error.config)
         }
         return Promise.reject(error)
 

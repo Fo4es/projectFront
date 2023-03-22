@@ -19,13 +19,13 @@ export default function Admin({user}){
     const dispatch = useDispatch();
 
     const submit = async ()=> {
-       await dispatch(paidActions.activateUser({id:id}))
-       navigator.clipboard.writeText(`http://localhost:3000/activate/${token}`);
+        await dispatch(paidActions.activateUser({id:id}))
+        navigator.clipboard.writeText(`http://localhost:3000/activate/${token}`);
         setShow('Copy');
     }
     const submit1 = async ()=> {
-       await dispatch(paidActions.userStatistic({id: id}));
-       setVisible(!visible);
+        await dispatch(paidActions.userStatistic({id: id}));
+        setVisible(!visible);
     }
     const submit2 = async ()=> {
         await dispatch(paidActions.banUser({id: id,select:is_active ? 'ban' : 'unban'}));
@@ -49,7 +49,7 @@ export default function Admin({user}){
             <button onClick={submit1}>statistic</button>
             <button onClick={submit2}>{is_active ? 'Block' : 'Unblock'}</button>
             {
-               visible && <Statistic data={statistic}/>
+                visible && <Statistic data={statistic}/>
             }
             <hr/>
         </div>
