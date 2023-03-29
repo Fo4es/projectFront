@@ -19,8 +19,8 @@ export default function LoginForm(){
 
     const submit = async (data) => {
         const {error} = await  dispatch(authActions.login({user:data}));
-        await dispatch(paidActions.usersMy())
         if(!error){
+            await dispatch(paidActions.usersMy())
             navigate('/paid')
         }
     };
@@ -38,7 +38,7 @@ export default function LoginForm(){
                         </div>
                         <div className="input-container">
                             <label>Password </label>
-                            <input type="text" placeholder={'password'} {...register('password')}/>
+                            <input type="password" placeholder={'password'} {...register('password')}/>
                         </div>
                         <div className="button-container">
                             <input type="submit"/>

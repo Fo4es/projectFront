@@ -3,11 +3,11 @@ import {urls} from "../urls/usrls";
 import {authServices} from "./auth.service";
 
 const paidService = {
-    getAll:(page=1,name='',surname='',email='',age='',course='',status='',course_format='',course_type='',order='id',size=10,start_date='',group='') => axiosService.get(urls.paid,{
+    getAll:(page=1,name='',surname='',email='',age='',course='',status='',course_format='',course_type='',order='id',size=10,start_date='',group='',end_date='') => axiosService.get(urls.paid,{
         headers:{
             Authorization: `Bearer ${authServices.getAccessToken()}`,
         },
-        params:{page,name,surname,email,age,course,status,course_format,course_type,order,size,start_date,group}
+        params:{page,name,surname,email,age,course,status,course_format,course_type,order,size,start_date,group,end_date}
     }),
     patchByID:(id,data) => axiosService.patch(`${urls.paid}/${id}`,data,{
         headers:{

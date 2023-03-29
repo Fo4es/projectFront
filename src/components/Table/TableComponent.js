@@ -5,10 +5,12 @@ import Comments from "./Comments";
 export default function TableComponent({data,columns,setChange,change}){
 
     const [isSubComponentVisible,setisSubComponentVisible] = useState(false);
+    const [open,setOpen] = useState(null);
 
     function toggleSubComponent() {
-        setisSubComponentVisible(!isSubComponentVisible);
-        setChange(!change);
+            setisSubComponentVisible(!isSubComponentVisible);
+            setChange(!change);
+
     }
     return(
         <React.Fragment>
@@ -16,7 +18,7 @@ export default function TableComponent({data,columns,setChange,change}){
                 {columns && columns.map(({accessor},index)=><TableData key={index} data={data} accessor={accessor} />)}
             </tr>
             {
-                isSubComponentVisible && <Comments data={data}/>
+                isSubComponentVisible && <Comments key={data.id} data={data} setChange={setChange} change={change}/>
             }
         </React.Fragment>
     );

@@ -1,10 +1,12 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {paidActions} from "../../redux/slice/paid.slice";
 
 export default function Form({searchParams,setSearchParams}){
 
     const dispatch = useDispatch();
+
+    const arr = ['name','age','surname','email','course','status','course_format','course_type','group','start_date','end_date'];
 
     const {group} = useSelector(state => state.group);
 
@@ -17,11 +19,21 @@ export default function Form({searchParams,setSearchParams}){
     const handleChange = (e)=>{
         if(e.target.value){
             searchParams.set(e.target.name,e.target.value);
-            setSearchParams(searchParams)
+            searchParams.set("page",1);
+            setSearchParams(searchParams);
         }else{
             searchParams.delete(e.target.name);
             setSearchParams(searchParams)
         }
+    }
+
+    const reset = ()=>{
+        arr.map(element=>{
+            if(searchParams.get(element)){
+                searchParams.delete(element)
+                setSearchParams(searchParams)
+            }
+        })
     }
 
     return(
@@ -70,11 +82,15 @@ export default function Form({searchParams,setSearchParams}){
                     {results && results.map((element,index)=><option key={index} value={element.name}>{element.name}</option> )}
                 </select>
 
-                <input type="date" name="start_date" onChange={handleChange}/>
+
+                <input type="date" name="start_date" onPointerLeave={handleChange}/>
+                <input type="date" name="end_date" onPointerLeave={handleChange}/>
 
 
 
+                <input type="reset" name="reset" onClick={reset}/>
             </form>
+
 
         </div>
     );

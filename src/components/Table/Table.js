@@ -15,9 +15,9 @@ export default function Table({items,search,setSearch,setChange,change}){
         { label: "Status", accessor: "status" },
         { label: "Course_Format", accessor: "course_format" },
         { label: "Course_Type", accessor: "course_type" },
-        { label: "Manager", accessor: "managerName" },
+        { label: "Manager", accessor: "manager" },
         { label: "created_at", accessor: "created_at" },
-        { label: "group", accessor: "groupName" }
+        { label: "group", accessor: "group" }
 
 
     ];

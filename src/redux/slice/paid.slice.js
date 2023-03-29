@@ -23,8 +23,8 @@ const initialState={
 
 const getAll = createAsyncThunk(
     'paid/getAll',
-    async ({page,name,surname,email,age,course,status,course_format,course_type,order,size,start_date,group})=>{
-        const {data} = await paidService.getAll(page,name,surname,email,age,course,status,course_format,course_type,order,size,start_date,group)
+    async ({page,name,surname,email,age,course,status,course_format,course_type,order,size,start_date,group,end_date})=>{
+        const {data} = await paidService.getAll(page,name,surname,email,age,course,status,course_format,course_type,order,size,start_date,group,end_date)
         return data
 
     }

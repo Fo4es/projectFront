@@ -25,7 +25,7 @@ export default function Paid(){
 
     const [query,setQuery] = useSearchParams({page: '1',size:'10'});
 
-    let [size,setSize] = useState(10*query.get('page'));
+    // let [size,setSize] = useState(10*query.get('page'));
 
     useEffect(()=>{
         const delay = setTimeout(()=>{
@@ -42,7 +42,8 @@ export default function Paid(){
                 order:searchParams.get('order'),
                 size:query.get('size'),
                 start_date:searchParams.get('start_date'),
-                group:searchParams.get('group')
+                group:searchParams.get('group'),
+                end_date:searchParams.get('end_date'),
             }))
         },500)
         return ()=> clearTimeout(delay)
@@ -52,16 +53,15 @@ export default function Paid(){
         const page = +query.get('page')-1;
         query.set("page",page);
         setQuery(query);
-        setSize(size=10*query.get('page'));
+        // setSize(size=10*query.get('page'));
     };
 
     const nextPage = () => {
         const page = +query.get('page')+1;
         query.set("page",page);
         setQuery(query);
-        setSize(size=10*query.get('page'));
+        // setSize(size=10*query.get('page'));
     };
-
 
 
     return(
@@ -73,7 +73,7 @@ export default function Paid(){
                 <div className="pagination">
                     <button className={'buttonPage'} disabled={!prev}  onClick={prevPage}>Prev</button>
                     <button className={'buttonPage'} disabled={!next} onClick={nextPage}>Next</button>
-                    <div>items for page: {query.get('size')}         {query.get('page')}-{size} of {paid.count}</div>
+                    <div>items for page: {query.get('size')}         {paid.count ? `${query.get('page')} page`:0} of {paid.count}</div>
 
                 </div>
             </div>

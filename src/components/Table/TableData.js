@@ -1,12 +1,12 @@
 export default function TableData({data,accessor}){
 
     let tData;
-    if(accessor ==='managerName'){
+    if(accessor ==='manager'){
         if(data['manager']){
             tData= data['manager']['name']
         }
     }
-    else if(accessor ==='groupName') {
+    else if(accessor ==='group') {
         if(data['group']){
             tData= data['group']['name']
         }

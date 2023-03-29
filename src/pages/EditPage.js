@@ -7,7 +7,7 @@ import {paidActions} from "../redux/slice/paid.slice";
 
 export default function EditPage() {
 
-    const {register, setValue, handleSubmit} = useForm();
+    const {register, setValue, handleSubmit,getValues} = useForm();
 
     const {register:register2,handleSubmit: handleSubmit2} = useForm();
 
@@ -34,7 +34,7 @@ export default function EditPage() {
             setValue('course', userForUpdate.course)
             setValue('phone', userForUpdate.phone)
             setValue('status', userForUpdate.status)
-            setValue('group', userForUpdate.group ? userForUpdate.group.name :userForUpdate.group)
+            setValue('group', userForUpdate.group ? userForUpdate.group.id :userForUpdate.group)
         }
     }, [setValue, userForUpdate]);
 
@@ -87,7 +87,8 @@ export default function EditPage() {
                         </div>
                         <div className="input-container">
                             <select className="inp" {...register("group")}>
-                                {results && results.map((element,index)=><option key={index} value={element.name}>{element.name}</option> )}
+                                {results && results.map((element,index)=><option key={index} value={element.id}>{element.name}</option>)}
+
                             </select>
                         </div>
                         <div className="input-container">

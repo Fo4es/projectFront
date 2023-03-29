@@ -6,31 +6,31 @@ import {paidActions} from "../../redux/slice/paid.slice";
 import {useEffect, useState} from "react";
 import {authServices} from "../../services/auth.service";
 
-export default function Comments({data}){
+export default function Comments({data,setChange,change}){
     const {handleSubmit,register,setValue} = useForm();
     const navigate = useNavigate();
-    const {id,manager} = data;
+    const {id,manager,comments} = data;
     const user = JSON.parse(authServices.getUser());
     const dispatch = useDispatch();
     const [block,setBlock] = useState(true);
 
-    const {comments} = useSelector(state => state.comments);
+    // const {comments} = useSelector(state => state.comments);
 
     useEffect(()=>{
-        dispatch(paidActions.getComments({id}));
+        // dispatch(paidActions.getComments({id}));
         if(manager){
             if(manager.name === user.profile.name){
                 setBlock(false);
             }
-            else if(manager === 0){
-                setBlock(false);
-            }
+        }else{
+            setBlock(false);
         }
-    },[])
+    },[block])
 
     const submit = async (comment)=> {
         await dispatch(paidActions.createComments({id: id, comment: comment}))
         setValue('comment','');
+        setChange(!change);
     }
     return(
         <tr>
