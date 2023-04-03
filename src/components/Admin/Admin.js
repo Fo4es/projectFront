@@ -1,39 +1,33 @@
 import {useDispatch, useSelector} from "react-redux";
+import {useState} from "react";
+import {adminActions} from "../../redux/slice/admin.slice";
+import BasicModal from "../modal";
 
-import {paidActions} from "../../redux/slice/paid.slice";
-import {useEffect, useState} from "react";
-import Statistic from "../Statistic/Statistic";
+export default function Admin({user,setActive}){
 
-export default function Admin({user}){
-
-    let {statistic} = useSelector(state => state.statistic);
+    // let {statistic} = useSelector(state => state.statistic);
 
     const {id,email,profile,is_active} = user;
 
     const [show,setShow] = useState('Activate');
-
-    const [visible,setVisible] = useState(false);
 
     const {token} = useSelector(state => state.token);
 
     const dispatch = useDispatch();
 
     const submit = async ()=> {
-        await dispatch(paidActions.activateUser({id:id}))
+        await dispatch(adminActions.activateUser({id:id}))
         navigator.clipboard.writeText(`http://localhost:3000/activate/${token}`);
         setShow('Copy');
     }
-    const submit1 = async ()=> {
-            await dispatch(paidActions.userStatistic({id: id}));
-            setVisible(!visible);
-
-    }
+    // const submit1 = async ()=> {
+    //         await dispatch(adminActions.userStatistic({id: id}));
+    //         // setVisible(!visible);
+    // }
     const submit2 = async ()=> {
-        await dispatch(paidActions.banUser({id: id,select:is_active ? 'ban' : 'unban'}));
-        window.location.reload(false)
-    }
-    const submit3 = async ()=> {
-        setVisible(!visible);
+        await dispatch(adminActions.banUser({id: id,select:is_active ? 'ban' : 'unban'}));
+        setActive(is_active)
+        // window.location.reload(false)
     }
 
     return(
@@ -49,11 +43,10 @@ export default function Admin({user}){
             is_active-{is_active.toString()}
             <br/>
             <button onClick={submit}>{show}</button>
-            <button onMouseLeave={submit3}  onMouseEnter={submit1} >statistic</button>
+            <BasicModal id={id}/>
             <button onClick={submit2}>{is_active ? 'Block' : 'Unblock'}</button>
-            {
-            visible && <Statistic data={statistic}/>
-            }
+            {/*{*/}
+            {/*}*/}
             <hr/>
         </div>
     );

@@ -19,10 +19,11 @@ const paidService = {
             Authorization: `Bearer ${authServices.getAccessToken()}`
         }
     }),
-    getAdminUsers:()=> axiosService.get(urls.admin,{
+    getAdminUsers:(page=1)=> axiosService.get(urls.admin,{
         headers:{
             Authorization: `Bearer ${authServices.getAccessToken()}`
-        }
+        },
+        params:{page}
     }),
     activateUser:(id)=> axiosService.get(`${urls.admin}/${id}/re_token`,{
         headers:{
@@ -63,6 +64,11 @@ const paidService = {
     }),
     postGroup:(group)=> axiosService.post(urls.groups,group,{
         headers:{
+            Authorization: `Bearer ${authServices.getAccessToken()}`
+        }
+    }),
+    getOrdersStatistic:()=> axiosService.get(urls.ordersStatistic, {
+        headers: {
             Authorization: `Bearer ${authServices.getAccessToken()}`
         }
     })

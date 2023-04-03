@@ -1,0 +1,11 @@
+.blockOrders{
+    display: flex;
+    justify-content: center
+}
+.blockOrder{
+    padding-right: 10px;
+}
+.mainBlock{
+    display: flex;
+    justify-content: center
+}

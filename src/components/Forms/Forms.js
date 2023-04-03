@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {paidActions} from "../../redux/slice/paid.slice";
 
@@ -14,7 +14,7 @@ export default function Form({searchParams,setSearchParams}){
 
     useEffect(()=>{
         dispatch(paidActions.getGroup());
-    },[]);
+    },[dispatch]);
 
     const handleChange = (e)=>{
         if(e.target.value){
@@ -28,6 +28,7 @@ export default function Form({searchParams,setSearchParams}){
     }
 
     const reset = ()=>{
+        // eslint-disable-next-line
         arr.map(element=>{
             if(searchParams.get(element)){
                 searchParams.delete(element)

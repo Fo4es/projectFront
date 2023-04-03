@@ -5,12 +5,8 @@ import PaidPage from "./pages/PaidPage";
 import AdminPage from "./pages/AdminPage";
 import ActivatePage from "./pages/ActivatePage";
 import EditPage from "./pages/EditPage";
-import {useState} from "react";
-import {authServices} from "./services/auth.service";
 
 const App = ()=>{
-
-    const user = JSON.parse(authServices.getUser())
 
   return (
     <Routes>

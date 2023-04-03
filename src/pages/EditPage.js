@@ -7,7 +7,7 @@ import {paidActions} from "../redux/slice/paid.slice";
 
 export default function EditPage() {
 
-    const {register, setValue, handleSubmit,getValues} = useForm();
+    const {register, setValue, handleSubmit} = useForm();
 
     const {register:register2,handleSubmit: handleSubmit2} = useForm();
 

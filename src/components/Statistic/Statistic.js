@@ -1,10 +1,12 @@
-export default function Statistic({data}){
+import {useSelector} from "react-redux";
 
-    const {statuses} = data
+export default function Statistic(){
+
+    const {statistic} = useSelector(state => state.statistic);
 
     return(
-        <div>
-            {statuses && statuses.map((element,index)=><div key={index}>{element.status}-{element.count}</div>)}
-        </div>
+        <>
+            {statistic.total_count !== 0 ? statistic.statuses && statistic.statuses.map((element,index)=><div key={index}>{element.status}-{element.count}</div>): 'No statistic was found'}
+        </>
     );
 }

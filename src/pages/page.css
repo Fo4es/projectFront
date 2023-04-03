@@ -65,3 +65,6 @@ input[type="submit"]:hover {
     color: red;
     font-size: 12px;
 }
+.inputBlock{
+    display: flex;
+}

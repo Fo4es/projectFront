@@ -5,7 +5,6 @@ import Comments from "./Comments";
 export default function TableComponent({data,columns,setChange,change}){
 
     const [isSubComponentVisible,setisSubComponentVisible] = useState(false);
-    const [open,setOpen] = useState(null);
 
     function toggleSubComponent() {
             setisSubComponentVisible(!isSubComponentVisible);

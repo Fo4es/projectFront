@@ -8,6 +8,7 @@ export default function TableHead({columns,setSearch,search}){
         const element = e && e.target.getAttribute('data-item');
         if(element){
             search.set("order",`${sort}${element}`);
+            search.set("page",1);
             setSearch(search);
             // setSearch({order:`${sort}${element}`});
             if(sort===''){

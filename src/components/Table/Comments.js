@@ -1,6 +1,6 @@
 import {useForm} from "react-hook-form";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 import {paidActions} from "../../redux/slice/paid.slice";
 import {useEffect, useState} from "react";
@@ -25,7 +25,7 @@ export default function Comments({data,setChange,change}){
         }else{
             setBlock(false);
         }
-    },[block])
+    },[block,manager])
 
     const submit = async (comment)=> {
         await dispatch(paidActions.createComments({id: id, comment: comment}))
