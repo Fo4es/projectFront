@@ -28,8 +28,7 @@ export default function AdminPage(){
 
     const user = JSON.parse(authServices.getUser())
 
-    const {handleSubmit,register} = useForm();
-
+    const {handleSubmit,register,formState: { errors }} = useForm();
     const dispatch = useDispatch();
 
     const submit = async (profile)=>{
@@ -69,16 +68,51 @@ export default function AdminPage(){
             <form onSubmit={handleSubmit(submit)}>
                 <div >
                 <div>
-                <input type="text" placeholder={"email"} {...register('email')}/>
-                    {error && error.email && error.email.map((obj,index)=>  <div key={index} className="error">{obj}</div>)}
+                <input type="text" placeholder={"email"} {...register('email',{
+                    required: {
+                        value: true,
+                        message: "You need to specify a valid email address"
+                    },
+                    pattern: {
+                        value: /^\S+@\S+$/i,
+                        message: "Dont valid email address"
+                    }
+                })}/>
+                    {error ? error.email && error.email.map((obj,index)=>  <div key={index} className="error">{obj}</div>):errors && errors.email && <div className="error">{errors.email.message}</div> }
                 </div>
                 <div>
-                <input type="text" placeholder={"name"} {...register('name')}/>
-                    {error && error.profile && error.profile.name && error.profile.name.map((obj,index)=><div key={index} className="error">{obj}</div>)}
+                <input type="text" placeholder={"name"} {...register('name',{
+                    required: {
+                        value:true,
+                        message: "Please, add your name"
+                    },
+                    pattern: {
+                        value: /^[a-zA-Zа-яА-Я]+$/,
+                        message: "Dont valid name?"
+                    },
+                    maxLength: {
+                        value: 100,
+                        message: "too long name, try again"
+                    }
+                })}/>
+                    {error ? error.profile && error.profile.name && error.profile.name.map((obj,index)=><div key={index} className="error">{obj}</div>):errors && errors.name && <div className="error">{errors.name.message}</div>}
                 </div>
                 <div>
-                <input type="text" placeholder={"surname"} {...register('surname')}/>
-                    {error && error.profile && error.profile.surname && error.profile.surname.map((obj,index)=><div key={index} className="error">{obj}</div>)}
+                <input type="text" placeholder={"surname"} {...register('surname',{
+                    required: {
+                        value:true,
+                        message: "Please, add your surname"
+                    },
+                    pattern: {
+                        value: /^[a-zA-Zа-яА-Я]+$/,
+                        message: "Dont valid surname?"
+                    },
+                    maxLength: {
+                        value: 100,
+                        message: "too long surname, try again"
+                    }
+                })}/>
+                    {error ? error.profile && error.profile.surname && error.profile.surname.map((obj,index)=><div key={index} className="error">{obj}</div>):errors && errors.surname && <div className="error">{errors.surname.message}</div>}
                 </div>
                 <button>create</button>
                 </div>

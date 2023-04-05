@@ -11,7 +11,7 @@ import './style.css'
 
 export default function Paid(){
 
-    const [searchParams,setSearchParams] = useSearchParams({order:'id'});
+    const [searchParams,setSearchParams] = useSearchParams({order:'-id'});
 
     const [change,setChange] = useState(false);
 

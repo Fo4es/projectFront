@@ -16,9 +16,14 @@ export default function Admin({user,setActive}){
     const dispatch = useDispatch();
 
     const submit = async ()=> {
-        await dispatch(adminActions.activateUser({id:id}))
-        navigator.clipboard.writeText(`http://localhost:3000/activate/${token}`);
-        setShow('Copy');
+        if(show==="Activate"){
+            await dispatch(adminActions.activateUser({id:id}))
+            setShow('Copy');
+        }else {
+            navigator.clipboard.writeText(`http://localhost:3000/activate/${token}`);
+        }
+
+
     }
     // const submit1 = async ()=> {
     //         await dispatch(adminActions.userStatistic({id: id}));

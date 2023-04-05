@@ -7,7 +7,7 @@ import {paidActions} from "../redux/slice/paid.slice";
 
 export default function EditPage() {
 
-    const {register, setValue, handleSubmit} = useForm();
+    const {register, setValue, handleSubmit, formState: { errors }} = useForm();
 
     const {register:register2,handleSubmit: handleSubmit2} = useForm();
 
@@ -40,6 +40,7 @@ export default function EditPage() {
 
     const submit = async (data) => {
         await dispatch(paidActions.patchComent({id: state.id, element: data}));
+        navigate('/paid')
     }
     const [visible,setVisible] = useState(false);
 
@@ -63,16 +64,51 @@ export default function EditPage() {
                 <div className="form">
                     <form onSubmit={handleSubmit(submit)}>
                         <div className="input-container">
-                            <input type="text" placeholder="name" {...register("name")}/>
-                            {renderErrorMessage("name")}
+                            <input type="text" placeholder="name" {...register("name",{
+                                required: {
+                                    value:true,
+                                    message: "Please, add your name"
+                                },
+                                pattern: {
+                                    value: /^[a-zA-Zа-яА-Я]+$/,
+                                    message: "Dont valid name?"
+                                },
+                                maxLength: {
+                                    value: 100,
+                                    message: "too long name, try again"
+                                }
+                            })}/>
+                            {error ? error.name && error.name.map((obj,index)=><div key={index} className="error">{obj}</div>):errors && errors.name && <div className="error">{errors.name.message}</div>}
                         </div>
                         <div className="input-container">
-                            <input type="text" placeholder="email" {...register("email")}/>
-                            {renderErrorMessage("email")}
+                            <input type="text" placeholder="email" {...register("email",{
+                                required: {
+                                    value: true,
+                                    message: "You need to specify a valid email address"
+                                },
+                                pattern: {
+                                    value: /^\S+@\S+$/i,
+                                    message: "Dont valid email address"
+                                }
+                            })}/>
+                            {error ? error.email && error.email.map((obj,index)=><div key={index} className="error">{obj}</div>):errors && errors.email && <div className="error">{errors.email.message}</div>}
                         </div>
                         <div className="input-container">
-                            <input type="text" placeholder="surname" {...register("surname")}/>
-                            {renderErrorMessage("surname")}
+                            <input type="text" placeholder="surname" {...register("surname",{
+                                required: {
+                                    value:true,
+                                    message: "Please, add your surname"
+                                },
+                                pattern: {
+                                    value: /^[a-zA-Zа-яА-Я]+$/,
+                                    message: "Dont valid surname?"
+                                },
+                                maxLength: {
+                                    value: 100,
+                                    message: "too long surname, try again"
+                                }
+                            })}/>
+                            {error ? error.surname && error.surname.map((obj,index)=><div key={index} className="error">{obj}</div>):errors && errors.surname && <div className="error">{errors.surname.message}</div>}
                         </div>
                         <div className="input-container">
                             <select className="inp" {...register("course")}>
@@ -96,8 +132,14 @@ export default function EditPage() {
                             {renderErrorMessage("phone")}
                         </div>
                         <div className="input-container">
-                            <input type="text" placeholder="status" {...register("status")}/>
-                            {renderErrorMessage("status")}
+                            <select className="inp" {...register("status")}>
+                                <option value=""> </option>
+                                <option value="В работе">В работе</option>
+                                <option value="Согласен">Согласен</option>
+                                <option value="Не согласен">Не согласен</option>
+                                <option value="Дубляж">Дубляж</option>
+                                <option value="Новый">Новый</option>
+                            </select>
                         </div>
                         <div className="button-container">
                             <button>Update</button>
