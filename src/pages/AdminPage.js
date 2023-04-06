@@ -16,6 +16,8 @@ export default function AdminPage(){
 
     const {admin,prevAdmin,nextAdmin,error} = useSelector(state => state.admin);
 
+    const[change,setChange] = useState(false);
+
     const [active,setActive] = useState();
 
     const [visible,setVisible] = useState(false);
@@ -28,13 +30,15 @@ export default function AdminPage(){
 
     const user = JSON.parse(authServices.getUser())
 
-    const {handleSubmit,register,formState: { errors }} = useForm();
+    const {handleSubmit,register,reset,formState: { errors }} = useForm();
     const dispatch = useDispatch();
 
     const submit = async (profile)=>{
         await dispatch(adminActions.createUser({
             user: {profile:{name: profile.name, surname: profile.surname},email: profile.email}
-        }));
+        }))
+        setChange(!change)
+        reset();
     }
 
     useEffect(()=> {
@@ -44,7 +48,7 @@ export default function AdminPage(){
         dispatch(adminActions.getAdminUser({
             page:queryP.get('page'),
         }))
-    },[queryP,dispatch,user.is_superuser,navigate,active])
+    },[queryP,dispatch,user.is_superuser,navigate,active,change])
 
     const prevP = () => {
         const page = +queryP.get('page')-1;
@@ -114,7 +118,7 @@ export default function AdminPage(){
                 })}/>
                     {error ? error.profile && error.profile.surname && error.profile.surname.map((obj,index)=><div key={index} className="error">{obj}</div>):errors && errors.surname && <div className="error">{errors.surname.message}</div>}
                 </div>
-                <button>create</button>
+                <button type="submit">create</button>
                 </div>
             </form>
             <button onClick={() => {

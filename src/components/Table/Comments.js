@@ -25,7 +25,7 @@ export default function Comments({data,setChange,change}){
         }else{
             setBlock(false);
         }
-    },[block,manager])
+    },[block,manager,user.profile.name])
 
     const submit = async (comment)=> {
         await dispatch(paidActions.createComments({id: id, comment: comment}))

@@ -47,7 +47,7 @@ export default function Paid(){
             }))
         },500)
         return ()=> clearTimeout(delay)
-    },[query,dispatch,change])
+    },[query,dispatch,change,searchParams])
 
     const prevPage = () => {
         const page = +query.get('page')-1;

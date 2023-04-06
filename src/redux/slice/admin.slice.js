@@ -101,7 +101,7 @@ const adminSlice = createSlice({
                     state.nextAdmin = action.payload.next
                 })
                 .addCase(createUser.fulfilled,(state, action) => {
-                    state.admin.push(action.payload)
+                    state.admin.results.push(action.payload)
                     state.error = null
                 })
                 .addCase(createUser.rejected,(state, action) => {
@@ -131,7 +131,7 @@ const adminSlice = createSlice({
 
     }
 );
-const {reducer:adminReducer,actions:{}} = adminSlice
+const {reducer:adminReducer} = adminSlice;
 
 const adminActions = {
     getAdminUser,
