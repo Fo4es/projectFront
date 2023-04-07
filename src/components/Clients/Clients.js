@@ -50,6 +50,7 @@ export default function Paid(){
         return ()=> clearTimeout(delay)
     },[query,dispatch,change,searchParams])
 
+
     const prevPage = () => {
         const page = +query.get('page')-1;
         query.set("page",page);
