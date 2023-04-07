@@ -8,7 +8,8 @@ const urls = {
     my:'/users/my',
     statistic:'/admin/statistic/users',
     groups:'/groups',
-    ordersStatistic:'/admin/statistic/orders'
+    ordersStatistic:'/admin/statistic/orders',
+    excel:'/orders/excel'
 
 
 }

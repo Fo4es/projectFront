@@ -1,12 +1,14 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {paidActions} from "../../redux/slice/paid.slice";
+import {axiosService} from "../../services/axios.service";
 
 export default function Form({searchParams,setSearchParams}){
 
     const dispatch = useDispatch();
 
     const arr = ['name','age','surname','email','course','status','course_format','course_type','group','start_date','end_date'];
+
 
     const {group} = useSelector(state => state.group);
 
@@ -36,6 +38,31 @@ export default function Form({searchParams,setSearchParams}){
             }
         })
     }
+
+
+    const handleDownload = async () => {
+        try {
+            // Send a request to the backend to generate the Excel file
+            const response = await axiosService.get('http://127.0.0.1:8000/api/v1/orders/excel', {
+                responseType: 'blob' // Set the response type to 'blob' to handle binary data
+            });
+
+            // Create a Blob from the response data
+            const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' });
+
+            // Create a download link element
+            const downloadLink = document.createElement('a');
+            downloadLink.href = window.URL.createObjectURL(blob);
+            downloadLink.download = '<excel>.xls'; // Set the desired filename for the downloaded file
+            downloadLink.click();
+
+        } catch (error) {
+            console.error('Error downloading Excel file:', error);
+        }
+    };
+
+
+
 
     return(
         <div>
@@ -91,6 +118,7 @@ export default function Form({searchParams,setSearchParams}){
 
                 <input type="reset" name="reset" onClick={reset}/>
             </form>
+            <button onClick={handleDownload}>excel</button>
 
 
         </div>

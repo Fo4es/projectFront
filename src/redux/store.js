@@ -1,4 +1,4 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore,getDefaultMiddleware} from "@reduxjs/toolkit";
 import {authReducer} from "./slice/auth.slices";
 import {paidReducer} from "./slice/paid.slice";
 import {adminReducer} from "./slice/admin.slice";
@@ -13,14 +13,22 @@ const rootReducer = combineReducers ({
     statistic:adminReducer,
     comments:paidReducer,
     group:paidReducer,
-    ordersStatistic:adminReducer
+    ordersStatistic:adminReducer,
 
 
 });
 
 const setupStore =()=> configureStore({
-    reducer:rootReducer
-});
+    reducer:rootReducer,
+
+    middleware: [
+        // eslint-disable-next-line
+        ...getDefaultMiddleware({
+            serializableCheck: false
+        })
+    ]
+
+    });
 
 export {
     setupStore
