@@ -7,7 +7,7 @@ import {paidActions} from "../redux/slice/paid.slice";
 
 export default function EditPage() {
 
-    const {register, setValue, handleSubmit, formState: { errors }} = useForm();
+    const {register, setValue, handleSubmit,getValues, formState: { errors }} = useForm();
 
     const {register:register2,handleSubmit: handleSubmit2} = useForm();
 
@@ -15,6 +15,7 @@ export default function EditPage() {
 
     const {group} = useSelector(state => state.group);
 
+    const fields = ['surname','name','email','phone','course','phone','status','group']
 
     const {results} = group;
 
@@ -38,16 +39,24 @@ export default function EditPage() {
         }
     }, [setValue, userForUpdate]);
 
+
+
+
     const submit = async (data) => {
+         // fields.map(obj=> console.log(setValue(obj,'nope')))
+        fields.map(obj=> getValues(obj) === '' ?  data[obj] = null:null)
+        // if(getValues("surname") === ''){
+        //     data.surname = null;
+        // }
         await dispatch(paidActions.patchComent({id: state.id, element: data}));
-        navigate('/paid')
+        navigate(-1)
     }
+    //getValues(obj)?setValue(obj,'nope'):null
     const [visible,setVisible] = useState(false);
 
 
     function groupHandle() {
         setVisible(!visible)
-
     }
 
     const createGroup = async (group)=> {
@@ -57,6 +66,7 @@ export default function EditPage() {
 
     const renderErrorMessage = (element) =>  error && error[element] &&  error[element].map((obj,index)=>  <div key={index} className="error">{obj}</div>);
 
+
     return (
         <div className="app">
             <div className="login-form">
@@ -65,12 +75,8 @@ export default function EditPage() {
                     <form onSubmit={handleSubmit(submit)}>
                         <div className="input-container">
                             <input type="text" placeholder="name" {...register("name",{
-                                required: {
-                                    value:true,
-                                    message: "Please, add your name"
-                                },
                                 pattern: {
-                                    value: /^[a-zA-Zа-яА-Я]+$/,
+                                    value: /^[a-zа-яёіA-ZА-ЯЇЁ]+$/,
                                     message: "Dont valid name?"
                                 },
                                 maxLength: {
@@ -82,10 +88,6 @@ export default function EditPage() {
                         </div>
                         <div className="input-container">
                             <input type="text" placeholder="email" {...register("email",{
-                                required: {
-                                    value: true,
-                                    message: "You need to specify a valid email address"
-                                },
                                 pattern: {
                                     value: /^\S+@\S+$/i,
                                     message: "Dont valid email address"
@@ -94,13 +96,9 @@ export default function EditPage() {
                             {error ? error.email && error.email.map((obj,index)=><div key={index} className="error">{obj}</div>):errors && errors.email && <div className="error">{errors.email.message}</div>}
                         </div>
                         <div className="input-container">
-                            <input type="text" placeholder="surname" {...register("surname",{
-                                required: {
-                                    value:true,
-                                    message: "Please, add your surname"
-                                },
+                            <input type="text" placeholder="surname"  {...register("surname",{
                                 pattern: {
-                                    value: /^[a-zA-Zа-яА-Я]+$/,
+                                    value: /^[a-zа-яёіA-ZА-ЯЇЁ]+$/,
                                     message: "Dont valid surname?"
                                 },
                                 maxLength: {
@@ -128,7 +126,12 @@ export default function EditPage() {
                             </select>
                         </div>
                         <div className="input-container">
-                            <input type="text" placeholder="phone" {...register("phone")}/>
+                            <input type="text" placeholder="phone" {...register("phone",{
+                                pattern: {
+                                    value: /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
+                                    message: "Dont valid phone?"
+                                },
+                            })}/>
                             {renderErrorMessage("phone")}
                         </div>
                         <div className="input-container">
@@ -148,7 +151,7 @@ export default function EditPage() {
                 </div>
             </div>
             <button onClick={() => {
-                navigate('/paid')
+                navigate(-1)
             }}>Back to table
             </button>
             <button onClick={groupHandle}>Create Group</button>

@@ -37,7 +37,7 @@ export default function Comments({data,setChange,change}){
             <td>
                 {comments && comments.map((comment,index)=> <div key={index}>{comment.comment}</div>)}
                 <form onSubmit={handleSubmit(submit)}>
-                    <input type="text" placeholder={'comment'} {...register('comment')}/>
+                    <input disabled={block} type="text" placeholder={'comment'} {...register('comment')}/>
                     <button disabled={block}>ok</button>
                 </form>
                 <button disabled={block} onClick={()=>{

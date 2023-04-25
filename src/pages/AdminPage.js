@@ -91,7 +91,7 @@ export default function AdminPage(){
                         message: "Please, add your name"
                     },
                     pattern: {
-                        value: /^[a-zA-Zа-яА-Я]+$/,
+                        value: /^[a-zа-яёіA-ZА-ЯЇЁ]+$/,
                         message: "Dont valid name?"
                     },
                     maxLength: {
@@ -108,7 +108,7 @@ export default function AdminPage(){
                         message: "Please, add your surname"
                     },
                     pattern: {
-                        value: /^[a-zA-Zа-яА-Я]+$/,
+                        value: /^[a-zа-яёіA-ZА-ЯЇЁ]+$/,
                         message: "Dont valid surname?"
                     },
                     maxLength: {
